@@ -10,19 +10,20 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.safari.SafariOptions;
 
 public class TAEDriver extends TAEBaseObject {
     private WebDriver driver;
     private WebDriverType driverType;
-    private final String HEADLESS_CHROME = "headless";
 
-    public TAEDriver(WebDriverType driverType) {
+    public TAEDriver(WebDriverType driverType, boolean headless) {
         this.driverType = driverType;
         if(driverType == WebDriverType.CHROME) {
             configureChromeDriver();
-            runChromeDriver(false);
+            runChromeDriver(headless);
         } else if (driverType == WebDriverType.FIREFOX) {
-            runFirefoxDriver(false);
+            runFirefoxDriver(headless);
         } else if (driverType == WebDriverType.EDGE) {
             runEdgeDriver();
         }
@@ -35,11 +36,6 @@ public class TAEDriver extends TAEBaseObject {
         return driver;
     }
 
-    public void quit() {
-        driver.quit();
-    }
-
-
     private void configureChromeDriver() {
         System.setProperty("headless", "false");
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
@@ -48,23 +44,26 @@ public class TAEDriver extends TAEBaseObject {
     private void runChromeDriver(boolean headless) {
         ChromeOptions chromeOptions = new ChromeOptions();
         if (headless) {
-            chromeOptions.addArguments("--" + HEADLESS_CHROME);
+            chromeOptions.addArguments("--headless");
         }
         driver = new ChromeDriver(chromeOptions);
+    }
+
+    private void runSafariDriver(boolean headless) {
+        SafariOptions safariOptions = new SafariOptions();
+        if(headless) {
+            safariOptions.setCapability("--headless", headless);
+        }
+        driver = new SafariDriver(safariOptions);
     }
 
     private void runFirefoxDriver(boolean headless) {
         FirefoxOptions ffOptions = new FirefoxOptions();
         if(headless) {
-            ffOptions.addArguments("--" + HEADLESS_CHROME);
+            ffOptions.addArguments("--headless");
         }
         driver = new FirefoxDriver(ffOptions);
     }
 
-    private void runEdgeDriver() {
-        DesiredCapabilities capability = DesiredCapabilities.edge();
-        EdgeOptions edgeOptions = new EdgeOptions();
-        capability.setCapability("edge option", edgeOptions);
-        driver = new EdgeDriver();
-    }
+
 }

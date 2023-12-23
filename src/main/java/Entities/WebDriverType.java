@@ -2,8 +2,8 @@ package Entities;
 
 public enum WebDriverType {
     CHROME("chrome"),
-    FIREFOX("firefox"),
-    EDGE("edge");
+    SAFARI("safari"),
+    FIREFOX("firefox");
 
     private String driverName;
 

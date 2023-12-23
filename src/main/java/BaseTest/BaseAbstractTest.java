@@ -14,13 +14,11 @@ import org.testng.annotations.Listeners;
 public abstract class BaseAbstractTest extends TAEBaseObject {
     private static TAEDriver driver;
 
-    public BaseAbstractTest(String browser) {
-        if (browser.equalsIgnoreCase(WebDriverType.CHROME.getDriverName())) {
-            driver = new TAEDriver(WebDriverType.CHROME);
-        } else if (browser.equalsIgnoreCase(WebDriverType.FIREFOX.getDriverName())) {
-            driver = new TAEDriver(WebDriverType.FIREFOX);
-        } else if (browser.equalsIgnoreCase(WebDriverType.EDGE.getDriverName())) {
-            driver = new TAEDriver(WebDriverType.EDGE);
+    public BaseAbstractTest(String browser, boolean headless) {
+        switch (browser) {
+            case "chrome" -> driver = new TAEDriver(WebDriverType.CHROME, headless);
+            case "firefox" -> driver = new TAEDriver(WebDriverType.FIREFOX, headless);
+            case "safari" -> driver = new TAEDriver(WebDriverType.SAFARI, headless);
         }
     }
 
