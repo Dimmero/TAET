@@ -55,12 +55,24 @@
 <!--&lt;!&ndash;            <systemPath>${project.basedir}/src/main/resources/TAE_Automation.jar</systemPath>&ndash;&gt;-->
 <!--        </dependency>-->
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>14</source>
+                    <target>14</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <log4j.version>2.14.1</log4j.version>
-        <selenium.java.version>3.141.59</selenium.java.version>
+        <selenium.java.version>4.16.1</selenium.java.version>
         <testng.version>6.8</testng.version>
     </properties>
 

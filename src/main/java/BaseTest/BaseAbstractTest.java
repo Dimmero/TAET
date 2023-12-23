@@ -40,7 +40,7 @@ public abstract class BaseAbstractTest extends TAEBaseObject {
     @AfterClass
     public void afterClass() {
         if (driver != null) {
-            driver.quit();
+            driver.getDriver().quit();
         }
     }
 

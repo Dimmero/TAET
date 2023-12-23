@@ -24,8 +24,8 @@ public class TAEDriver extends TAEBaseObject {
             runChromeDriver(headless);
         } else if (driverType == WebDriverType.FIREFOX) {
             runFirefoxDriver(headless);
-        } else if (driverType == WebDriverType.EDGE) {
-            runEdgeDriver();
+        } else if (driverType == WebDriverType.SAFARI) {
+            runSafariDriver(headless);
         }
         else {
             throw new WebDriverException(String.format("Not configured driver type %s. ", driverType.getDriverName()));
