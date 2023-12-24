@@ -5,9 +5,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.FormPage;
 
-public class Test1 extends BaseAbstractTest {
+public class PracticeAutomationTests extends BaseAbstractTest {
     public final String BASE_URL = "https://automationintesting.online";
-    public Test1() {
+    public PracticeAutomationTests() {
         super("chrome", false);
     }
 
