@@ -9,6 +9,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
@@ -50,11 +51,13 @@ public class TAEDriver extends TAEBaseObject {
     }
 
     private void runSafariDriver(boolean headless) {
-        SafariOptions safariOptions = new SafariOptions();
-        if(headless) {
-            safariOptions.setCapability("--headless", headless);
-        }
-        driver = new SafariDriver(safariOptions);
+//        SafariOptions safariOptions = new SafariOptions();
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability(CapabilityType.BROWSER_NAME, "safari");
+//        if(headless) {
+//            safariOptions.setCapability("--headless", headless);
+//        }
+        driver = new SafariDriver(SafariOptions.fromCapabilities(capabilities));
     }
 
     private void runFirefoxDriver(boolean headless) {

@@ -2,9 +2,12 @@ package pages;
 
 import BaseAbstractElements.BaseAbstractPage;
 import Core.TAEDriver;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class FormPage extends BaseAbstractPage {
     @FindBy(xpath = "//input[@id='name']")
@@ -48,7 +51,13 @@ public class FormPage extends BaseAbstractPage {
     }
 
     public void clickButton() {
-        submitButton.click();
+        if (driver.getDriver() instanceof SafariDriver) {
+            JavascriptExecutor jsEx = (JavascriptExecutor) driver.getDriver();
+            jsEx.executeScript("arguments[0].click();", submitButton);
+        } else {
+            wait.until(ExpectedConditions.elementToBeClickable(submitButton));
+            submitButton.click();
+        }
     }
 
     public String getConfirmationText() {
