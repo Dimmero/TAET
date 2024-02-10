@@ -1,25 +1,43 @@
 package tests;
 
 import BaseTest.BaseAbstractTest;
+import Core.TAEDriver;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.FormPage;
 
+import java.io.BufferedInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PracticeAutomationTests extends BaseAbstractTest {
     public final String BASE_URL = "https://automationintesting.online";
+    public final String BASE_URL_APILO = "https://laptok.apilo.com/";
+    public boolean cantDownload = true;
+
 
     public PracticeAutomationTests() {
-        super("chrome", true);
+        super("chrome", false);
     }
 
     @Test
@@ -41,27 +59,17 @@ public class PracticeAutomationTests extends BaseAbstractTest {
         Assert.assertEquals(loginPage.getConfirmationText(), String.format(confirmationText, name));
     }
 
-    @Test
-    public void practiceJsoup() {
-        Document document = null;
-        try {
-            document = Jsoup.connect(BASE_URL).get();
-        } catch (IOException e) {
-            e.getStackTrace();
+
+
+
+    private String extractText(String text) {
+        Pattern pattern = Pattern.compile("(https.*22)");
+        Matcher matcher = pattern.matcher(text);
+        if (matcher.find()) {
+            return matcher.group(0).replace("\\", "");
         }
-        assert document != null;
-        Elements elements = document.selectXpath("//div[@class='row']//div[@class='col-sm-3 content']");
-        if (elements.size() == 0) {
-            getDriver().getDriver().get(BASE_URL);
-        }
-        List<WebElement> par = getDriver().getDriver().findElements(By.xpath("//div[@class='row']//div[@class='col-sm-3 content']//p"));
-        String elText = par.get(0).getText();
-
-
-
-
-
-
+        return null;
     }
+
 
 }

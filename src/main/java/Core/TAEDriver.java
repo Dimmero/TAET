@@ -13,9 +13,13 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class TAEDriver extends TAEBaseObject {
     private WebDriver driver;
+    private WebDriverWait wait;
     private WebDriverType driverType;
 
     public TAEDriver(WebDriverType driverType, boolean headless) {
@@ -37,6 +41,10 @@ public class TAEDriver extends TAEBaseObject {
         return driver;
     }
 
+    public WebDriverWait getWait() {
+        return wait;
+    }
+
     private void configureChromeDriver() {
         System.setProperty("headless", "false");
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
@@ -48,6 +56,7 @@ public class TAEDriver extends TAEBaseObject {
             chromeOptions.addArguments("--headless");
         }
         driver = new ChromeDriver(chromeOptions);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     private void runSafariDriver(boolean headless) {

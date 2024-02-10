@@ -12,7 +12,11 @@ import org.testng.annotations.Listeners;
 @Listeners(TestListener.class)
 
 public abstract class BaseAbstractTest extends TAEBaseObject {
-    private static TAEDriver driver;
+     public static TAEDriver driver;
+
+    public TAEDriver getDriver() {
+        return driver;
+    }
 
     public BaseAbstractTest(String browser, boolean headless) {
         switch (browser) {
@@ -20,10 +24,6 @@ public abstract class BaseAbstractTest extends TAEBaseObject {
             case "firefox" -> driver = new TAEDriver(WebDriverType.FIREFOX, headless);
             case "safari" -> driver = new TAEDriver(WebDriverType.SAFARI, headless);
         }
-    }
-
-    public TAEDriver getDriver() {
-        return driver;
     }
 
     private String getClassName() {
