@@ -33,15 +33,16 @@ import java.util.regex.Pattern;
 public class PracticeAutomationTests extends BaseAbstractTest {
     public final String BASE_URL = "https://automationintesting.online";
     public final String BASE_URL_APILO = "https://laptok.apilo.com/";
+    public FormPage loginPage;
 
 
     public PracticeAutomationTests() {
         super("chrome", false);
+        this.loginPage = new FormPage(getDriver());
     }
 
     @Test
     public void submitFormWithAllParameters() {
-        FormPage loginPage = new FormPage(getDriver());
         getDriver().getDriver().get(BASE_URL);
         String confirmationText = "Thanks for getting in touch %s!";
         String name = "Dima";

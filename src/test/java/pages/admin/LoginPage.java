@@ -2,11 +2,13 @@ package pages.admin;
 
 import BaseAbstractElements.BaseAbstractPage;
 import BaseTest.BaseAbstractTest;
+import Core.TAEDriver;
+import Entities.WebDriverType;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage extends AbstractPage {
+public class LoginPage extends BaseAbstractPage {
     public final String LOGIN_URL = "/auth/login";
    @FindBy(xpath = "//input[@name='login']")
     public WebElement loginInput;
@@ -23,7 +25,8 @@ public class LoginPage extends AbstractPage {
     @FindBy(xpath = "//a[contains(@href, 'en_US')]")
     public WebElement languageUsLink;
 
-    public LoginPage() {
+    public LoginPage(TAEDriver driver) {
+        super(driver);
         PageFactory.initElements(driver.getDriver(), this);
     }
 
