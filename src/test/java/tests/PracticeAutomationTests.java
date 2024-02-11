@@ -33,7 +33,6 @@ import java.util.regex.Pattern;
 public class PracticeAutomationTests extends BaseAbstractTest {
     public final String BASE_URL = "https://automationintesting.online";
     public final String BASE_URL_APILO = "https://laptok.apilo.com/";
-    public boolean cantDownload = true;
 
 
     public PracticeAutomationTests() {
