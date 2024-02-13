@@ -29,4 +29,9 @@ public class BaseAbstractPage extends TAEBaseObject {
         wait.until(ExpectedConditions.elementToBeClickable(element));
         element.click();
     }
+
+    public void goToPage(String url) {
+        driver.getDriver().get(url);
+    }
+
 }

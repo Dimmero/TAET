@@ -35,7 +35,7 @@ public class LoginPage extends BaseAbstractPage {
     }
 
     public void fillPasswordInput(String password) {
-        loginInput.sendKeys(password);
+        passwordInput.sendKeys(password);
     }
 
     public void switchToLanguage(String language) {
@@ -47,6 +47,10 @@ public class LoginPage extends BaseAbstractPage {
 
     public void submitForm() {
         clickElement(submitButton);
+    }
+
+    public void goToLoginPage() {
+        goToPage(BASE_URL + LOGIN_URL);
     }
 
 }
