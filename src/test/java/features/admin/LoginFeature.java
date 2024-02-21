@@ -3,6 +3,7 @@ package features.admin;
 import Core.TAEDriver;
 import pages.admin.LoginPage;
 
+import java.awt.dnd.DragSourceEvent;
 import java.util.List;
 import java.util.Map;
 
@@ -16,13 +17,21 @@ public class LoginFeature extends BaseAbstractFeature {
         loginPage = new LoginPage(driver);
     }
 
-    public void loginAdmin(Map<String, Object> parameters) {
+    public void loginAdminWithDifferentCredentials(Map<String, Object> parameters) {
         loginPage.goToLoginPage();
-        loginPage.fillLoginInput(parameters.get(LOGIN) != null ? (String) parameters.get(LOGIN) : GOOD_LOGIN);
-        loginPage.fillPasswordInput(parameters.get(PASSWORD) != null ? (String) parameters.get(PASSWORD) : GOOD_PASSWORD);
-        if (parameters.get(SUBMIT) == null || (Boolean) parameters.get(SUBMIT)) {
-            loginPage.submitForm();
-        }
+            loginPage.fillLoginInput((String) parameters.get(LOGIN));
+            loginPage.fillPasswordInput((String) parameters.get(PASSWORD));
+            if (parameters.get(SUBMIT) == null || (Boolean) parameters.get(SUBMIT)) {
+                loginPage.submitForm();
+            }
     }
+
+    public void loginAdminWithGoodCredentials() {
+        loginPage.goToLoginPage();
+        loginPage.fillLoginInput(GOOD_LOGIN);
+        loginPage.fillPasswordInput(GOOD_PASSWORD);
+        loginPage.submitForm();
+    }
+
 
 }
