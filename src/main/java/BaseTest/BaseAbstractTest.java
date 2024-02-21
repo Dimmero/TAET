@@ -14,7 +14,7 @@ import org.testng.annotations.Listeners;
 public abstract class BaseAbstractTest extends TAEBaseObject {
      public static TAEDriver driver;
 
-    public TAEDriver getDriver() {
+    public TAEDriver getTAEDriver() {
         return driver;
     }
 
