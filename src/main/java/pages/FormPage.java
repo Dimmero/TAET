@@ -55,7 +55,7 @@ public class FormPage extends BaseAbstractPage {
             JavascriptExecutor jsEx = (JavascriptExecutor) driver.getDriver();
             jsEx.executeScript("arguments[0].click();", submitButton);
         } else {
-            wait.until(ExpectedConditions.elementToBeClickable(submitButton));
+            driver.getWait().until(ExpectedConditions.elementToBeClickable(submitButton));
             submitButton.click();
         }
     }
