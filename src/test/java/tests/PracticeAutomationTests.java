@@ -38,12 +38,12 @@ public class PracticeAutomationTests extends BaseAbstractTest {
 
     public PracticeAutomationTests() {
         super("chrome", false);
-        this.loginPage = new FormPage(getDriver());
+        this.loginPage = new FormPage(getTAEDriver());
     }
 
     @Test
     public void submitFormWithAllParameters() {
-        getDriver().getDriver().get(BASE_URL);
+        getTAEDriver().getDriver().get(BASE_URL);
         String confirmationText = "Thanks for getting in touch %s!";
         String name = "Dima";
         String email = "a@a.com";
