@@ -4,6 +4,7 @@ import Core.TAEBaseObject;
 import Core.TAEDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -12,6 +13,10 @@ import java.time.Duration;
 public class BaseAbstractPage extends TAEBaseObject {
     public TAEDriver driver;
     public final String BASE_URL = "https://sklep165422.shoparena.pl/admin";
+    @FindBy(xpath = "//a[contains(@href, 'pl_PL')]")
+    public WebElement languagePlLink;
+    @FindBy(xpath = "//a[contains(@href, 'en_US')]")
+    public WebElement languageUsLink;
 
 
     public BaseAbstractPage(TAEDriver driver) {
@@ -33,4 +38,13 @@ public class BaseAbstractPage extends TAEBaseObject {
         driver.getDriver().get(url);
     }
 
+
+
+    public void switchToLanguage(String language) {
+        switch (language) {
+            case "pl_PL" -> clickElement(languagePlLink);
+            case "en_US" -> clickElement(languageUsLink);
+        }
+
+    }
 }

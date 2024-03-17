@@ -1,32 +1,52 @@
 package pages.admin;
 
+import BaseAbstractElements.BaseAbstractPage;
+import Core.TAEDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-import javax.xml.xpath.XPath;
+public class ForgotPasswordPage extends BaseAbstractPage {
 
-public class ForgotPasswordPage {
+    public final String REMINDER_URL = "/admin/auth/reminder";
 
-    public final String REMINDER_URL = "/auth/login/reminder";
+    @FindBy(xpath = "//span[@class= 'size_xxxl color_dark weight_semibold']")
+    public WebElement RemindPasswordSpan;
 
-    @FindBy(xpath = "//*[@class= 'size_xxxl color_dark weight_semibold']")
-    public WebElement inscriptionRemindPassword;
+    @FindBy(xpath = "//form[@class='form_block']//p[@class='size_xl']")
+    public WebElement EnterEmailParagraph;
 
-    @FindBy(xpath = "//*[@class='size_xl']")
-    public WebElement inscriptionEnterEmail;
+    @FindBy(xpath = "//a[@class='link']")
+    public WebElement linkBackToLogin;
 
-    @FindBy(xpath = "//*[@class='link']")
-    public WebElement loginButton;
+    @FindBy(xpath = "//input[@name='email']")
+    public WebElement emailInput;
 
-    @FindBy(xpath = "//*[@class='control control_with-icon']")
-    public WebElement eMailInput;
+    @FindBy(xpath = "//button[@type='submit']")
+    public WebElement submitButton;
 
-    @FindBy(xpath = "//*[@class='btn btn_bg']")
-    public WebElement buttonPasswordReminder;
+    @FindBy(xpath = "//div[@class='flash-messenger']")
+    public WebElement flashMassage;
 
-    @FindBy(xpath = "//a[contains(@href, 'pl_PL')]")
-    public WebElement languagePlLink;
-    @FindBy(xpath = "//a[contains(@href, 'en_US')]")
-    public WebElement languageUsLink;
+    public ForgotPasswordPage(TAEDriver driver) {
+        super(driver);
+        PageFactory.initElements(driver.getDriver(), this);
+    }
+
+    public void goToForgotPasswordPage() {
+        goToPage(BASE_URL + REMINDER_URL);
+    }
+
+    public void backToLoginPage() {
+        clickElement(linkBackToLogin);
+    }
+
+    public void clickSubmit(){
+        clickElement(submitButton);
+    }
+
+    public void fillEmailInput(String EMAIL) {emailInput.sendKeys(EMAIL);}
 
 }
+
+
