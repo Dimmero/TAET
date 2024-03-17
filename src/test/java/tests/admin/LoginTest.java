@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import pages.admin.ForgotPasswordPage;
 import pages.admin.LoginPage;
 
 import java.util.HashMap;
@@ -17,8 +18,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class LoginTest extends BaseAbstractTest {
     public LoginFeature loginFeature;
     public LoginPage loginPage;
-    Map<String, Object> parameters = new HashMap<>();
 
+    public ForgotPasswordPage forgotPasswordPage;
 
     public LoginTest() {
         super("chrome", false);
@@ -29,6 +30,7 @@ public class LoginTest extends BaseAbstractTest {
     @Test
     public void verifyLoginWithValidCredentials() {
         String expectedUrl = "/dashboard";
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put(loginFeature.LOGIN, "test");
         parameters.put(loginFeature.PASSWORD, "Garaz123!");
         parameters.put(loginFeature.SUBMIT, true);
@@ -39,6 +41,7 @@ public class LoginTest extends BaseAbstractTest {
     @Test(dataProvider = "loginData")
     public void verifyLoginWithInvalidCredentials(String login, String password) {
         String expectedUrl = "/dashboard";
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put(loginFeature.LOGIN, login);
         parameters.put(loginFeature.PASSWORD, password);
         parameters.put(loginFeature.SUBMIT, true);
@@ -49,6 +52,7 @@ public class LoginTest extends BaseAbstractTest {
     @Test
     public void verifyFlashMessageInvalidCredentials() {
         String expectedFlashMsg = "Nieprawidłowy login lub hasło.";
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put(loginFeature.LOGIN, "Test");
         parameters.put(loginFeature.PASSWORD, "test");
         parameters.put(loginFeature.SUBMIT, true);
@@ -60,7 +64,7 @@ public class LoginTest extends BaseAbstractTest {
     public void verifyUrlAfterSwitchToEN() {
         String expectedUrl = "/admin/auth/login?language=en_US";
         loginPage.goToLoginPage();
-        loginPage.switchToLanguage(loginPage.EN);
+        loginPage.switchToLanguage("en_US");
         Assert.assertTrue(driver.getDriver().getCurrentUrl().contains(expectedUrl));
     }
 
@@ -70,8 +74,8 @@ public class LoginTest extends BaseAbstractTest {
         String inscriptionLoginTextBefore = loginPage.inscriptionLogin.getText();
         String inscriptionUnderLoginTextBefore = loginPage.inscriptionUnderLogin.getText();
         String buttonForgotPasswordTextBefore = loginPage.buttonForgotPassword.getText();
-        loginPage.switchToLanguage(loginPage.EN);
-        String inscriptionLoginTextAfter = loginPage.inscriptionLogin.getText();
+        loginPage.switchToLanguage("en_US");
+        String inscriptionLoginTextAfter = loginPage.inscriptionLogin.getText();// remove inscription
         String inscriptionUnderLoginTextAfter = loginPage.inscriptionUnderLogin.getText();
         String buttonForgotPasswordTextAfter = loginPage.buttonForgotPassword.getText();
         Assert.assertNotEquals(inscriptionLoginTextBefore,inscriptionLoginTextAfter, "text login doesn't exchange");
@@ -82,11 +86,19 @@ public class LoginTest extends BaseAbstractTest {
     @Test
     public void  appearanceOfDotsInPasswordField(){
         String expectedPassword = "1234567891";
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put(loginFeature.LOGIN, "Test");
         parameters.put(loginFeature.PASSWORD,"1234567891");
         loginFeature.loginAdminWithDifferentCredentials(parameters);
         Assert.assertNotEquals(loginPage.passwordInput.getText(),expectedPassword);
+    }
 
+    @Test
+    public void verifyGoToForgotPasswordPage(){
+        String expectedUrl = forgotPasswordPage.REMINDER_URL;
+        loginPage.goToLoginPage();
+        loginPage.clickForgotPassword();
+        Assert.assertTrue(driver.getDriver().getCurrentUrl().contains(expectedUrl));
     }
 
     @DataProvider(name = "loginData")

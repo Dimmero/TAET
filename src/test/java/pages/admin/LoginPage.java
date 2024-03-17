@@ -12,8 +12,7 @@ import javax.xml.xpath.XPath;
 
 public class LoginPage extends BaseAbstractPage {
     public final String LOGIN_URL = "/auth/login";
-    public final String EN = "en_US";
-    public final String PL = "pl_PL";
+
     @FindBy(xpath = "//input[@name='login']")
     public WebElement loginInput;
 
@@ -23,22 +22,16 @@ public class LoginPage extends BaseAbstractPage {
     @FindBy(xpath = "//button[@type='submit']")
     public WebElement submitButton;
 
-    @FindBy(xpath = "//a[contains(@href, 'pl_PL')]")
-    public WebElement languagePlLink;
-
-    @FindBy(xpath = "//a[contains(@href, 'en_US')]")
-    public WebElement languageUsLink;
-
-    @FindBy(xpath = "//div[1]/div/form/h1")
+    @FindBy(xpath = "//div[@class = 'box box_spacing-s']//h1")
     public WebElement inscriptionLogin;
 
-    @FindBy(xpath = "// *[@class='size_xl']")
+    @FindBy(xpath = "//div[@class='mb-6']//p[@class='size_xl']")
     public WebElement inscriptionUnderLogin;
 
     @FindBy(xpath = "//a[contains(@href,'/admin/auth/reminder')]")
     public WebElement buttonForgotPassword;
 
-    @FindBy(xpath = "//*[@class ='flash-messenger']")
+    @FindBy(xpath = "//div[@class ='flash-messenger']")
     public WebElement flashMassage;
 
 
@@ -55,18 +48,11 @@ public class LoginPage extends BaseAbstractPage {
         passwordInput.sendKeys(password);
     }
 
-    public void switchToLanguage(String language) {
-        switch (language) {
-            case "pl_PL" -> clickElement(languagePlLink);
-            case "en_US" -> clickElement(languageUsLink);
-        }
-    }
-
     public void submitForm() {
         clickElement(submitButton);
     }
 
-    public void forgotPassword() {
+    public void clickForgotPassword() {
         clickElement(buttonForgotPassword);
     }
 

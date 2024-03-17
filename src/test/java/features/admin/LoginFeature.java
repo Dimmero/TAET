@@ -12,6 +12,7 @@ public class LoginFeature extends BaseAbstractFeature {
     public final String LOGIN = "login";
     public final String PASSWORD = "password";
     public final String SUBMIT = "submit";
+    public final String EMAIL = "email";
 
     public LoginFeature(TAEDriver driver) {
         loginPage = new LoginPage(driver);
